@@ -2,10 +2,11 @@ import React, { memo } from 'react';
 import { useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 
+import getIsLoggedIn from '../../redux/selectors/selectors';
 import { authRoutes, publicRoutes } from '../../routes/routes';
 
 function AppRouter() {
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const isLoggedIn = useSelector(getIsLoggedIn);
 
   return (
     <Routes>

@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { string } from 'prop-types';
 import Alert from 'react-bootstrap/Alert';
@@ -8,11 +8,19 @@ import './style.css';
 
 function ErrorAlert({ message }) {
   const dispatch = useDispatch();
+
+  const close = () => dispatch(closeAlert());
+
+  const closeCallback = useCallback(
+    () => {
+      close();
+    },
+  );
   return (
     <Alert
       variant="danger"
       className="alert"
-      onClose={() => dispatch(closeAlert())}
+      onClose={closeCallback}
       dismissible
     >
       {message}

@@ -1,7 +1,9 @@
 import axios from 'axios';
 
-const $host = axios.create({
+export const $host = axios.create({
   baseURL: 'https://reqres.in',
 });
 
-export default $host;
+export const $authHost = axios.create({
+  baseURL: 'https://restcountries.com',
+});

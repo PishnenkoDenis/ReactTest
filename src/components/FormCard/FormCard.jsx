@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useCallback } from 'react';
 import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
 
@@ -13,6 +13,14 @@ import './style.css';
 
 function FormCard() {
   const dispatch = useDispatch();
+
+  const getChecked = () => dispatch(setChecked(true));
+
+  const checkedCallback = useCallback(
+    () => {
+      getChecked();
+    },
+  );
 
   const submitHandler = (values) => {
     dispatch(login(values));
@@ -70,7 +78,7 @@ function FormCard() {
             <Form.Check
               type="checkbox"
               label="Check me out"
-              onChange={() => dispatch(setChecked(true))}
+              onChange={checkedCallback}
             />
           </Form.Group>
           <Button
