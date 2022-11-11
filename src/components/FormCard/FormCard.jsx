@@ -1,37 +1,86 @@
 import React, { memo } from 'react';
+import { useFormik } from 'formik';
+import { useDispatch } from 'react-redux';
 
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 
+import validateUser from '../../utils/validateUser';
+import { login, setChecked } from '../../redux/actions/authActions';
+import './style.css';
+
 function FormCard() {
+  const dispatch = useDispatch();
+
+  const submitHandler = (values) => {
+    dispatch(login(values));
+  };
+
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+      password: '',
+    },
+    validationSchema: validateUser(),
+    onSubmit: submitHandler,
+  });
+
   return (
-    <Card style={{
-      width: '35rem',
-      height: '20rem',
-      marginTop: '8rem',
-      boxShadow: 'var(--box-shadow)',
-    }}
-    >
+    <Card className="card">
       <Card.Body>
-        <Card.Title style={{ textAlign: 'center' }}>Registration</Card.Title>
-        <Form>
+        <Card.Title className="title">
+          Authorization
+        </Card.Title>
+        <Form className="form">
           <FloatingLabel
             controlId="floatingInput"
             label="Email address"
             className="mb-3"
           >
-            <Form.Control type="email" placeholder="name@example.com" style={{ height: '3.5rem' }} />
+            <Form.Control
+              type="email"
+              name="email"
+              placeholder="Email address"
+              className="input"
+              onChange={formik.handleChange}
+              value={formik.values.email}
+              error={formik.touched.email && Boolean(formik.errors.email)}
+            />
+            {formik.touched.email && formik.errors.email && (
+              <span className="error-text">{formik.errors.email}</span>
+            )}
           </FloatingLabel>
           <FloatingLabel controlId="floatingPassword" label="Password">
-            <Form.Control type="password" placeholder="Password" style={{ height: '3.5rem', marginBottom: '1rem' }} />
+            <Form.Control
+              type="password"
+              name="password"
+              placeholder="Password"
+              className="input"
+              onChange={formik.handleChange}
+              value={formik.values.password}
+              error={formik.touched.password && Boolean(formik.errors.password)}
+            />
+            {formik.touched.password && formik.errors.password && (
+              <span className="error-text">{formik.errors.password}</span>
+            )}
           </FloatingLabel>
           <Form.Group className="mb-3" controlId="formBasicCheckbox">
-            <Form.Check type="checkbox" label="Check me out" />
+            <Form.Check
+              type="checkbox"
+              label="Check me out"
+              onChange={() => dispatch(setChecked(true))}
+            />
           </Form.Group>
-          <Button variant="primary" type="submit">
-            Submit
+          <Button
+            className="mx-1"
+            style={{ width: '100px' }}
+            variant="primary"
+            type="submit"
+            onClick={formik.handleSubmit}
+          >
+            Sign In
           </Button>
         </Form>
       </Card.Body>
