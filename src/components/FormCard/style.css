@@ -1,0 +1,31 @@
+.card {
+  width: 35rem;
+  height: 20rem;
+  margin-top: 8rem;
+  box-shadow: var(--box-shadow);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.input {
+  height: 3.5rem;
+}
+
+.error-text {
+  color: red;
+  font-size: 12px;
+}
+
+.title {
+  text-align: center;
+}
+
+.row {
+  display: flex;
+  justify-content: start;
+
+}
