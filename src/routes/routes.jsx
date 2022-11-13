@@ -18,7 +18,7 @@ export const publicRoutes = [
 
 export const authRoutes = [
   {
-    path: '/details/:id',
+    path: '/details/:alphaCode',
     element: <CountryDetailsPage />,
   },
   {

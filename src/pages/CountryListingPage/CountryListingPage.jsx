@@ -35,14 +35,7 @@ function CountryListingPage() {
   }
 
   return (
-    <>
-      <CountryTable listing={listing} />
-      {/* <PopUp
-        show={show}
-        name={commonName}
-        officialName={officialName}
-      /> */}
-    </>
+    <CountryTable listing={listing} />
   );
 }
 

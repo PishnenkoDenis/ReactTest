@@ -1,8 +1,8 @@
 import { bool, string } from 'prop-types';
 import React, { memo } from 'react';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
 import { useDispatch } from 'react-redux';
+
+import Modal from 'react-bootstrap/Modal';
 import { closePopUp } from '../../redux/actions/listingActions';
 
 function PopUp({ show, officialName, name }) {
@@ -15,11 +15,6 @@ function PopUp({ show, officialName, name }) {
         <Modal.Title>{name}</Modal.Title>
       </Modal.Header>
       <Modal.Body>{officialName}</Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
-          Close
-        </Button>
-      </Modal.Footer>
     </Modal>
   );
 }

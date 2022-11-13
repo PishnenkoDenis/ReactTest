@@ -1,5 +1,5 @@
 import React, { memo, useCallback, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Container from 'react-bootstrap/Container';
@@ -14,33 +14,57 @@ import getIsLoggedIn from '../../redux/selectors/selectors';
 function Header() {
   const isLoggedIn = useSelector(getIsLoggedIn);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  useEffect(() => () => {
-    dispatch(checkUser());
-  }, []);
+  useEffect(
+    () => () => {
+      dispatch(checkUser());
+    },
+    [],
+  );
 
   const logout = () => dispatch(logoutUser());
 
   const logoutCallback = useCallback(() => {
     logout();
+    navigate('/login');
   });
   return (
     <Navbar bg="light" variant="light">
       <Container>
         <Navbar.Brand>Test App</Navbar.Brand>
         <Nav className="m-auto d-flex justify-content-around align-items-center">
-          {!isLoggedIn && <Link to="/login" className="mx-5 text-decoration-none">Login</Link>}
-          <Link to="/index" className="mx-5 text-decoration-none">Country Listing</Link>
-          <Link to="/details/:id" className="mx-5 text-decoration-none">Country Details</Link>
+          {!isLoggedIn && (
+            <Button
+              variant="light"
+              className="mx-5"
+              onClick={() => navigate('/login')}
+            >
+              Login
+            </Button>
+          )}
+          <Button
+            variant="light"
+            onClick={() => navigate('/index')}
+            disabled={!isLoggedIn}
+          >
+            Country Listing
+          </Button>
+          <Button
+            variant="light"
+            onClick={() => navigate('/details/:id')}
+            disabled={!isLoggedIn}
+          >
+            Country Details
+          </Button>
         </Nav>
-        {isLoggedIn
-        && (
-        <Button
-          variant="light"
-          onClick={logoutCallback}
-        >
-          Logout
-        </Button>
+        {isLoggedIn && (
+          <Button
+            variant="light"
+            onClick={logoutCallback}
+          >
+            Logout
+          </Button>
         )}
       </Container>
     </Navbar>

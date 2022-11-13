@@ -8,4 +8,12 @@ export const getIsLoading = (state) => state.list.isLoading;
 
 export const getShow = (state) => state.list.show;
 
+export const getParams = (state) => state.list.cca3;
+
+export const getDetails = (state) => state.details.details;
+
+export const getErrorDetails = (state) => state.details.error;
+
+export const getIsLoadingDetails = (state) => state.details.isLoading;
+
 export default getIsLoggedIn;

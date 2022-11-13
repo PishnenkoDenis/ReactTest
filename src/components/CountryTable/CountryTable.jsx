@@ -1,27 +1,36 @@
 import React, { memo, useState } from 'react';
 import { arrayOf, shape } from 'prop-types';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
 
 import Table from 'react-bootstrap/Table';
+import Button from 'react-bootstrap/Button';
 
-import EyeButton from '../EyeButton/EyeButton';
-
-import './style.css';
-import { openPopUp } from '../../redux/actions/listingActions';
 import PopUp from '../PopUp/PopUp';
+import { openPopUp } from '../../redux/actions/listingActions';
+import { getShow } from '../../redux/selectors/selectors';
+import './style.css';
 
 function CountryTable({ listing }) {
+  const navigate = useNavigate();
+
   const dispatch = useDispatch();
   const [officialName, setOfficialName] = useState('');
   const [commonName, setCommonName] = useState('');
+
+  const show = useSelector(getShow);
 
   const getOfficialName = (name) => {
     const searched = listing.find((item) => item.name.common === name);
     setOfficialName(searched.name.official);
     setCommonName(name);
     dispatch(openPopUp());
-    console.log(searched);
   };
+
+  const getDetailsPage = (param) => {
+    navigate(`/details/${param}`);
+  };
+
   return (
     <>
       <Table
@@ -51,14 +60,22 @@ function CountryTable({ listing }) {
               <td>{item.capital?.[0]}</td>
               <td>{item.cca2}</td>
               <th>
-                <EyeButton />
+                <Button
+                  onClick={() => getDetailsPage(item.cca3)}
+                >
+                  Details
+
+                </Button>
               </th>
             </tr>
           ))}
         </tbody>
       </Table>
-      <PopUp />
-
+      <PopUp
+        officialName={officialName}
+        name={commonName}
+        show={show}
+      />
     </>
   );
 }
