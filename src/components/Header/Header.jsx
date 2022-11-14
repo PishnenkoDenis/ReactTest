@@ -1,5 +1,5 @@
-import React, { memo, useCallback, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { memo, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Container from 'react-bootstrap/Container';
@@ -9,38 +9,68 @@ import Button from 'react-bootstrap/Button';
 
 import { checkUser } from '../../redux/actions/checkUserActions';
 import { logoutUser } from '../../redux/actions/logoutActions';
-import getIsLoggedIn from '../../redux/selectors/selectors';
+import { getDetails, getIsLoggedIn } from '../../redux/selectors/selectors';
 
 function Header() {
   const isLoggedIn = useSelector(getIsLoggedIn);
+  const details = useSelector(getDetails);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  useEffect(() => () => {
-    dispatch(checkUser());
-  }, []);
+  useEffect(
+    () => () => {
+      dispatch(checkUser());
+    },
+    [],
+  );
 
-  const logout = () => dispatch(logoutUser());
+  const logout = () => {
+    dispatch(logoutUser());
+    navigate('/login');
+  };
 
-  const logoutCallback = useCallback(() => {
-    logout();
-  });
+  const navigateLogin = () => navigate('/login');
+
+  const navigateIndex = () => navigate('/index');
+
+  const navigateDetails = () => navigate('/details/:id');
+
   return (
     <Navbar bg="light" variant="light">
       <Container>
         <Navbar.Brand>Test App</Navbar.Brand>
         <Nav className="m-auto d-flex justify-content-around align-items-center">
-          {!isLoggedIn && <Link to="/login" className="mx-5 text-decoration-none">Login</Link>}
-          <Link to="/index" className="mx-5 text-decoration-none">Country Listing</Link>
-          <Link to="/details/:id" className="mx-5 text-decoration-none">Country Details</Link>
+          {!isLoggedIn && (
+            <Button
+              variant="light"
+              className="mx-5"
+              onClick={navigateLogin}
+            >
+              Login
+            </Button>
+          )}
+          <Button
+            variant="light"
+            onClick={navigateIndex}
+            disabled={!isLoggedIn}
+          >
+            Country Listing
+          </Button>
+          <Button
+            variant="light"
+            onClick={navigateDetails}
+            disabled={!isLoggedIn || !details.length}
+          >
+            Country Details
+          </Button>
         </Nav>
-        {isLoggedIn
-        && (
-        <Button
-          variant="light"
-          onClick={logoutCallback}
-        >
-          Logout
-        </Button>
+        {isLoggedIn && (
+          <Button
+            variant="light"
+            onClick={logout}
+          >
+            Logout
+          </Button>
         )}
       </Container>
     </Navbar>

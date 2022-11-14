@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import { useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 
-import getIsLoggedIn from '../../redux/selectors/selectors';
+import { getIsLoggedIn } from '../../redux/selectors/selectors';
 import { authRoutes, publicRoutes } from '../../routes/routes';
 
 function AppRouter() {

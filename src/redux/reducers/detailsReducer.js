@@ -1,46 +1,41 @@
 import {
-  LIST_SUCCESSED, LIST_FAILED, LIST_REQUESTED, OPEN_POPUP, CLOSE_POPUP,
+  DETAILS_SUCCESSED, DETAILS_FAILED, DETAILS_REQUESTED, DETAILS_ESCAPED,
 } from '../../utils/constants';
 
 const initialState = {
-  listing: [],
+  details: [],
   error: null,
   isLoading: false,
-  show: false,
 };
 
-const listingReducer = (state = initialState, action = null) => {
+const detailsReducer = (state = initialState, action = null) => {
   switch (action.type) {
-    case LIST_REQUESTED:
+    case DETAILS_REQUESTED:
       return {
         ...state,
         isLoading: true,
       };
-    case LIST_SUCCESSED:
+    case DETAILS_SUCCESSED:
       return {
         ...state,
         isLoading: false,
-        listing: action.payload,
+        details: action.payload,
       };
-    case LIST_FAILED:
+    case DETAILS_FAILED:
       return {
         ...state,
         isLoading: false,
         error: action.payload,
       };
-    case OPEN_POPUP:
+    case DETAILS_ESCAPED:
       return {
         ...state,
-        show: true,
-      };
-    case CLOSE_POPUP:
-      return {
-        ...state,
-        show: false,
+        isLoading: false,
+        details: [],
       };
     default:
       return state;
   }
 };
 
-export default listingReducer;
+export default detailsReducer;
