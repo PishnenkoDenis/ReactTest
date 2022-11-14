@@ -1,20 +1,35 @@
-import { bool, string } from 'prop-types';
+import { bool, string, shape } from 'prop-types';
 import React, { memo } from 'react';
 import { useDispatch } from 'react-redux';
 
 import Modal from 'react-bootstrap/Modal';
+
 import { closePopUp } from '../../redux/actions/listingActions';
 
-function PopUp({ show, officialName, name }) {
+function PopUp({
+  show, officialName, name, nativeName,
+}) {
   const dispatch = useDispatch();
   const handleClose = () => dispatch(closePopUp());
+
+  const names = nativeName && Array.from(Object.values(Object.values(nativeName)));
 
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>{name}</Modal.Title>
+        <Modal.Title>
+          {name}
+          {' '}
+          -
+          {' '}
+          {officialName}
+        </Modal.Title>
       </Modal.Header>
-      <Modal.Body>{officialName}</Modal.Body>
+      <Modal.Body>
+        {names.map((item) => (
+          `${item?.common} - ${item?.official}`
+        ))}
+      </Modal.Body>
     </Modal>
   );
 }
@@ -23,6 +38,7 @@ PopUp.propTypes = {
   show: bool.isRequired,
   officialName: string.isRequired,
   name: string.isRequired,
+  nativeName: shape().isRequired,
 };
 
 export default memo(PopUp);
