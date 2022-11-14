@@ -16,11 +16,9 @@ function FormCard() {
 
   const getChecked = () => dispatch(setChecked(true));
 
-  const checkedCallback = useCallback(
-    () => {
-      getChecked();
-    },
-  );
+  const checkedCallback = useCallback(() => {
+    getChecked();
+  }, []);
 
   const submitHandler = (values) => {
     dispatch(login(values));

@@ -11,11 +11,9 @@ function ErrorAlert({ message }) {
 
   const close = () => dispatch(closeAlert());
 
-  const closeCallback = useCallback(
-    () => {
-      close();
-    },
-  );
+  const closeCallback = useCallback(() => {
+    close();
+  }, []);
   return (
     <Alert
       variant="danger"
