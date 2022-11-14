@@ -3,7 +3,7 @@ import { arrayOf, shape } from 'prop-types';
 
 import Table from 'react-bootstrap/Table';
 
-function DetailsTable({ details }) {
+function DetailsTable({ details: [details] }) {
   return (
     <Table
       bordered
@@ -12,18 +12,17 @@ function DetailsTable({ details }) {
       <tbody>
         <tr>
           <th>Common Name</th>
-          <td>{details[0]?.name.common}</td>
+          <td>{details?.name.common}</td>
         </tr>
         <tr>
           <th>Official Name</th>
-          <td>{details[0]?.name.official}</td>
+          <td>{details?.name.official}</td>
         </tr>
         <tr>
           <th>Currencies</th>
           <td>
             <ul style={{ paddingLeft: 0 }}>
-              {details[0]?.currencies && Array
-                .from(Object.values(Object.values(details[0]?.currencies)))
+              {details?.currencies && Object.values(details?.currencies)
                 .map((item) => (
                   <li
                     style={{ listStyle: 'none' }}
@@ -42,7 +41,7 @@ function DetailsTable({ details }) {
         <tr>
           <th>Languages</th>
           <td>
-            {details[0]?.languages && Array.from(Object.values(details[0]?.languages))
+            {details?.languages && Object.values(details?.languages)
               .map((item, index, array) => (
                 index === array.length - 1 ? ` ${item} ` : ` ${item} |`
               ))}
@@ -50,7 +49,7 @@ function DetailsTable({ details }) {
         </tr>
         <tr>
           <th>Flag</th>
-          <td>{details[0]?.flag}</td>
+          <td>{details?.flag}</td>
         </tr>
       </tbody>
     </Table>

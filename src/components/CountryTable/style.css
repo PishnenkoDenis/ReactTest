@@ -3,4 +3,6 @@
     width: 100%;
     margin: auto;
     margin-top: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--box-shadow);
 }

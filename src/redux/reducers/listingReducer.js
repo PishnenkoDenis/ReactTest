@@ -9,7 +9,7 @@ const initialState = {
   show: false,
 };
 
-const listingReducer = (state = initialState, action = {}) => {
+const listingReducer = (state = initialState, action = null) => {
   switch (action.type) {
     case LIST_REQUESTED:
       return {

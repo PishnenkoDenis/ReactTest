@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useEffect } from 'react';
+import React, { memo, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -24,30 +24,17 @@ function Header() {
     [],
   );
 
-  const logout = () => dispatch(logoutUser());
-
-  const logoutCallback = useCallback(() => {
-    logout();
+  const logout = () => {
+    dispatch(logoutUser());
     navigate('/login');
-  });
+  };
 
   const navigateLogin = () => navigate('/login');
 
-  const loginCallback = useCallback(() => {
-    navigateLogin();
-  });
-
   const navigateIndex = () => navigate('/index');
-
-  const indexCallback = useCallback(() => {
-    navigateIndex();
-  });
 
   const navigateDetails = () => navigate('/details/:id');
 
-  const detailsCallback = useCallback(() => {
-    navigateDetails();
-  });
   return (
     <Navbar bg="light" variant="light">
       <Container>
@@ -57,21 +44,21 @@ function Header() {
             <Button
               variant="light"
               className="mx-5"
-              onClick={loginCallback}
+              onClick={navigateLogin}
             >
               Login
             </Button>
           )}
           <Button
             variant="light"
-            onClick={indexCallback}
+            onClick={navigateIndex}
             disabled={!isLoggedIn}
           >
             Country Listing
           </Button>
           <Button
             variant="light"
-            onClick={detailsCallback}
+            onClick={navigateDetails}
             disabled={!isLoggedIn || !details.length}
           >
             Country Details
@@ -80,7 +67,7 @@ function Header() {
         {isLoggedIn && (
           <Button
             variant="light"
-            onClick={logoutCallback}
+            onClick={logout}
           >
             Logout
           </Button>

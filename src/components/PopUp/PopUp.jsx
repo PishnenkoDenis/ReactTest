@@ -12,7 +12,7 @@ function PopUp({
   const dispatch = useDispatch();
   const handleClose = () => dispatch(closePopUp());
 
-  const names = nativeName && Array.from(Object.values(Object.values(nativeName)));
+  const names = nativeName && Object.values(nativeName);
 
   return (
     <Modal show={show} onHide={handleClose}>
@@ -21,13 +21,12 @@ function PopUp({
           {name}
           {' '}
           -
-          {' '}
           {officialName}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         {names.map((item) => (
-          `${item?.common} - ${item?.official}`
+          <p>{`${item?.common} - ${item?.official}`}</p>
         ))}
       </Modal.Body>
     </Modal>

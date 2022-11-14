@@ -18,7 +18,7 @@ const initialState = {
   check: false,
 };
 
-const authReducer = (state = initialState, action = {}) => {
+const authReducer = (state = initialState, action = null) => {
   switch (action.type) {
     case LOGIN_REQUESTED:
       return {

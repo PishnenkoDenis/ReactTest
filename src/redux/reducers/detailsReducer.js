@@ -8,7 +8,7 @@ const initialState = {
   isLoading: false,
 };
 
-const detailsReducer = (state = initialState, action = {}) => {
+const detailsReducer = (state = initialState, action = null) => {
   switch (action.type) {
     case DETAILS_REQUESTED:
       return {
