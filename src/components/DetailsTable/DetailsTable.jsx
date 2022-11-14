@@ -21,18 +21,31 @@ function DetailsTable({ details }) {
         <tr>
           <th>Currencies</th>
           <td>
-            {Array.from(Object.entries(details[0]?.currencies)).map((key, value) => (
-              `${key} - ${value}`
-            ))}
+            <ul style={{ paddingLeft: 0 }}>
+              {details[0]?.currencies && Array
+                .from(Object.values(Object.values(details[0]?.currencies)))
+                .map((item) => (
+                  <li
+                    style={{ listStyle: 'none' }}
+                  >
+                    {item.name}
+                    {' '}
+                    -
+                    {' '}
+                    {item.symbol}
+
+                  </li>
+                ))}
+            </ul>
           </td>
         </tr>
         <tr>
           <th>Languages</th>
           <td>
-            {Array.from(Object.values(details[0]?.languages)).map((item) => (
-              `${item} | `
-            ))}
-
+            {details[0]?.languages && Array.from(Object.values(details[0]?.languages))
+              .map((item, index, array) => (
+                index === array.length - 1 ? ` ${item} ` : ` ${item} |`
+              ))}
           </td>
         </tr>
         <tr>
