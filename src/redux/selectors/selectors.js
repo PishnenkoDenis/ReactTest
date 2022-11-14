@@ -1,4 +1,4 @@
-const getIsLoggedIn = (state) => state.auth.isLoggedIn;
+export const getIsLoggedIn = (state) => state.auth.isLoggedIn;
 
 export const getListing = (state) => state.list.listing;
 
@@ -15,5 +15,3 @@ export const getDetails = (state) => state.details.details;
 export const getErrorDetails = (state) => state.details.error;
 
 export const getIsLoadingDetails = (state) => state.details.isLoading;
-
-export default getIsLoggedIn;

@@ -9,10 +9,11 @@ import Button from 'react-bootstrap/Button';
 
 import { checkUser } from '../../redux/actions/checkUserActions';
 import { logoutUser } from '../../redux/actions/logoutActions';
-import getIsLoggedIn from '../../redux/selectors/selectors';
+import { getDetails, getIsLoggedIn } from '../../redux/selectors/selectors';
 
 function Header() {
   const isLoggedIn = useSelector(getIsLoggedIn);
+  const details = useSelector(getDetails);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -29,6 +30,24 @@ function Header() {
     logout();
     navigate('/login');
   });
+
+  const navigateLogin = () => navigate('/login');
+
+  const loginCallback = useCallback(() => {
+    navigateLogin();
+  });
+
+  const navigateIndex = () => navigate('/index');
+
+  const indexCallback = useCallback(() => {
+    navigateIndex();
+  });
+
+  const navigateDetails = () => navigate('/details/:id');
+
+  const detailsCallback = useCallback(() => {
+    navigateDetails();
+  });
   return (
     <Navbar bg="light" variant="light">
       <Container>
@@ -38,22 +57,22 @@ function Header() {
             <Button
               variant="light"
               className="mx-5"
-              onClick={() => navigate('/login')}
+              onClick={loginCallback}
             >
               Login
             </Button>
           )}
           <Button
             variant="light"
-            onClick={() => navigate('/index')}
+            onClick={indexCallback}
             disabled={!isLoggedIn}
           >
             Country Listing
           </Button>
           <Button
             variant="light"
-            onClick={() => navigate('/details/:id')}
-            disabled={!isLoggedIn}
+            onClick={detailsCallback}
+            disabled={!isLoggedIn || !details.length}
           >
             Country Details
           </Button>

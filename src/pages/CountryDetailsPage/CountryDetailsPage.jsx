@@ -5,7 +5,7 @@ import DetailsTable from '../../components/DetailsTable/DetailsTable';
 
 import ErrorAlert from '../../components/ErrorAlert/ErrorAlert';
 import Loader from '../../components/Loader/Loader';
-import { getDetailsData } from '../../redux/actions/detailsActions';
+import { getDetailsData, getDetailsEscaped } from '../../redux/actions/detailsActions';
 import {
   getErrorDetails,
   getIsLoadingDetails,
@@ -14,7 +14,6 @@ import {
 
 function CountryDetailsPage() {
   const dispatch = useDispatch();
-
   const { alphaCode } = useParams();
 
   const details = useSelector(getDetails);
@@ -23,6 +22,9 @@ function CountryDetailsPage() {
 
   useEffect(() => {
     dispatch(getDetailsData(alphaCode));
+    return () => {
+      dispatch(getDetailsEscaped());
+    };
   }, []);
 
   if (isLoading) {

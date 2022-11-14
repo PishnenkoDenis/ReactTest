@@ -10,7 +10,6 @@ function* detailsWorker({ payload }) {
   try {
     const { data } = yield call($authHost.get, `/v3.1/alpha/${payload}`);
     yield put(getDetailsSuccessed(data));
-    console.log(data);
   } catch (error) {
     yield put(getDetailsFailed(error.response.data.error));
   }

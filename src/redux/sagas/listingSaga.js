@@ -10,7 +10,6 @@ function* listWorker() {
   try {
     const { data } = yield call($authHost.get, '/v3.1/all');
     yield put(getListSuccessed(data));
-    console.log(data);
   } catch (error) {
     yield put(getListFailed(error.response.data.error));
   }

@@ -1,5 +1,5 @@
 import {
-  DETAILS_SUCCESSED, DETAILS_FAILED, DETAILS_REQUESTED,
+  DETAILS_SUCCESSED, DETAILS_FAILED, DETAILS_REQUESTED, DETAILS_ESCAPED,
 } from '../../utils/constants';
 
 const initialState = {
@@ -26,6 +26,12 @@ const detailsReducer = (state = initialState, action = {}) => {
         ...state,
         isLoading: false,
         error: action.payload,
+      };
+    case DETAILS_ESCAPED:
+      return {
+        ...state,
+        isLoading: false,
+        details: [],
       };
     default:
       return state;
